@@ -321,4 +321,10 @@ module.exports = {
   sepBy1,
   between,
   lazy,
+
+  Parser,
+
+  updateParserState,
+  updateParserResult,
+  updateParserError,
 };
