@@ -20,9 +20,9 @@ class Parser {
     this.parserStateTransformerFn = parserStateTransformerFn;
   }
 
-  run(targetString) {
+  run(target) {
     const initialState = {
-      targetString,
+      target,
       index: 0,
       result: null,
       isError: false,
@@ -67,7 +67,7 @@ class Parser {
 
 const str = s => new Parser(parserState => {
   const {
-    targetString,
+    target,
     index,
     isError
   } = parserState;
@@ -76,7 +76,7 @@ const str = s => new Parser(parserState => {
     return parserState;
   }
 
-  const slicedTarget = targetString.slice(index)
+  const slicedTarget = target.slice(index)
 
   if (slicedTarget.length === 0) {
     return updateParserError(parserState, `str: Tried to match "${s}", but got Unexpected end of input.`);
@@ -88,14 +88,14 @@ const str = s => new Parser(parserState => {
 
   return updateParserError(
     parserState,
-    `str: Tried to match "${s}", but got "${targetString.slice(index, index + 10)}"`
+    `str: Tried to match "${s}", but got "${target.slice(index, index + 10)}"`
   );
 })
 
 const lettersRegex = /^[A-Za-z]+/;
 const letters = new Parser(parserState => {
   const {
-    targetString,
+    target,
     index,
     isError
   } = parserState;
@@ -104,7 +104,7 @@ const letters = new Parser(parserState => {
     return parserState;
   }
 
-  const slicedTarget = targetString.slice(index)
+  const slicedTarget = target.slice(index)
 
   if (slicedTarget.length === 0) {
     return updateParserError(parserState, `letters: Got Unexpected end of input.`);
@@ -125,7 +125,7 @@ const letters = new Parser(parserState => {
 const digitsRegex = /^[0-9]+/;
 const digits = new Parser(parserState => {
   const {
-    targetString,
+    target,
     index,
     isError
   } = parserState;
@@ -134,7 +134,7 @@ const digits = new Parser(parserState => {
     return parserState;
   }
 
-  const slicedTarget = targetString.slice(index)
+  const slicedTarget = target.slice(index)
 
   if (slicedTarget.length === 0) {
     return updateParserError(parserState, `digits: Got Unexpected end of input.`);
