@@ -165,6 +165,10 @@ const sequenceOf = parsers => new Parser(parserState => {
     results.push(nextState.result);
   }
 
+  if (nextState.isError) {
+    return nextState;
+  }
+
   return updateParserResult(nextState, results);
 })
 
