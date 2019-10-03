@@ -195,7 +195,9 @@ const parser = sequenceOf([
 ]).chain(res => {
   if (res[1].value > 5) {
     const remainingBytes = Array.from({length: res[1].value - 20}, () => Uint(8));
-    return sequenceOf(remainingBytes).chain(remaining => [
+    // In the video .chain() was used here (incorrectly)
+    // Thanks to https://github.com/IceSentry for pointing that one out
+    return sequenceOf(remainingBytes).map(remaining => [
       ...res,
       tag('Options')(remaining)
     ]);
